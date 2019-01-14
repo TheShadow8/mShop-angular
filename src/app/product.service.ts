@@ -21,6 +21,21 @@ export class ProductService {
       );
   }
 
+  // getAll<T>() {
+  //   return this.db
+  //     .list<T>('/products')
+  //     .snapshotChanges()
+  //     .pipe(
+  //       map(a =>
+  //         a.map(p => {
+  //           const value = <any>Object.assign({}, p.payload.val());
+  //           value.key = p.key;
+  //           return <T>value;
+  //         })
+  //       )
+  //     );
+  // }
+
   get(productId) {
     return this.db.object('/products/' + productId);
   }
