@@ -12,32 +12,32 @@ export class ProductService {
     this.db.list('/products').push(product);
   }
 
-  getAll() {
-    return this.db
-      .list('/products')
-      .snapshotChanges()
-      .pipe(
-        map(actions => actions.map(a => ({ key: a.key, ...a.payload.val() })))
-      );
-  }
-
-  // getAll<T>() {
+  // getAll() {
   //   return this.db
-  //     .list<T>('/products')
+  //     .list('/products')
   //     .snapshotChanges()
   //     .pipe(
-  //       map(a =>
-  //         a.map(p => {
-  //           const value = <any>Object.assign({}, p.payload.val());
-  //           value.key = p.key;
-  //           return <T>value;
-  //         })
-  //       )
+  //       map(actions => actions.map(a => ({ key: a.key, ...a.payload.val() })))
   //     );
   // }
 
-  get(productId) {
-    return this.db.object('/products/' + productId);
+  getAll<T>() {
+    return this.db
+      .list<T>('/products')
+      .snapshotChanges()
+      .pipe(
+        map(a =>
+          a.map(p => {
+            const value = <any>Object.assign({}, p.payload.val());
+            value.key = p.key;
+            return <T>value;
+          })
+        )
+      );
+  }
+
+  get<T>(productId) {
+    return this.db.object<T>('/products/' + productId);
   }
 
   update(productId, product) {
