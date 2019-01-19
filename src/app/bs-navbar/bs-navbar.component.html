@@ -20,9 +20,12 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/shopping-cart">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            <!-- <span class="badge badge-warning badge-pill" *ngIf="(cart$ | async) as cart">
+            <span
+              class="badge badge-warning badge-pill"
+              *ngIf="(cart$ | async) as cart"
+            >
               {{ cart.totalItemsCount }}
-            </span> -->
+            </span>
           </a>
         </li>
       </ul>
