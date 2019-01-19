@@ -3,10 +3,12 @@ import { Product } from './product';
 
 export class ShoppingCart {
   items: ShoppingCartItem[] = [];
-  constructor(public itemsMap: { [productId: string]: ShoppingCartItem }) {
+  constructor(private itemsMap: { [productId: string]: ShoppingCartItem }) {
+    this.itemsMap = itemsMap || {};
     for (let productId in itemsMap) {
       let item = itemsMap[productId];
-      this.items.push(new ShoppingCartItem(item.product, item.quantity));
+
+      this.items.push(new ShoppingCartItem({ ...item, key: productId }));
     }
   }
 
@@ -16,16 +18,16 @@ export class ShoppingCart {
 
   get totalItemsCount() {
     let count = 0;
-    for (let productId in this.itemsMap) {
-      count += this.itemsMap[productId].quantity;
+    for (let productId in this.items) {
+      count += this.items[productId].quantity;
     }
     return count;
   }
 
   get totalPrice() {
     let sum = 0;
-    for (let productId in this.itemsMap) {
-      sum += this.itemsMap[productId].totalPrice;
+    for (let productId in this.items) {
+      sum += this.items[productId].totalPrice;
     }
     return sum;
   }

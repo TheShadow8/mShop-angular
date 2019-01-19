@@ -21,6 +21,19 @@ export class ShoppingCartService {
       .pipe(map((x: any) => new ShoppingCart(x.payload.val().items)));
   }
 
+  async addToCart(product: Product) {
+    this.updateItem(product, 1);
+  }
+
+  async removeFromCart(product: Product) {
+    this.updateItem(product, -1);
+  }
+
+  async clearCart() {
+    let cardId = await this.getOrCreateCart();
+    this.db.object('/shopping-carts/' + cardId + '/items/').remove();
+  }
+
   private getItem(
     cardId: string,
     productId: string
@@ -29,7 +42,7 @@ export class ShoppingCartService {
   }
 
   private create() {
-    return this.db.list('/shopping-carts').push({
+    return this.db.list('/shopping-carts/').push({
       dateCreated: new Date().getTime()
     });
   }
@@ -44,7 +57,7 @@ export class ShoppingCartService {
     return res.key;
   }
 
-  private async updateItemQuantity(product: Product, change: number) {
+  private async updateItem(product: Product, change: number) {
     let cardId = await this.getOrCreateCart();
     let item$ = this.getItem(cardId, product.key);
 
@@ -52,19 +65,16 @@ export class ShoppingCartService {
       .snapshotChanges()
       .pipe(take(1))
       .subscribe(item => {
-        item$.update({
-          product: product,
-          quantity:
-            ((item.payload.val() && item.payload.val().quantity) || 0) + change
-        });
+        let quantity =
+          ((item.payload.val() && item.payload.val().quantity) || 0) + change;
+        if (quantity === 0) item$.remove();
+        else
+          item$.update({
+            title: product.title,
+            imageUrl: product.imageUrl,
+            price: product.price,
+            quantity
+          });
       });
-  }
-
-  async addToCart(product: Product) {
-    this.updateItemQuantity(product, 1);
-  }
-
-  async removeFromCart(product: Product) {
-    this.updateItemQuantity(product, -1);
   }
 }

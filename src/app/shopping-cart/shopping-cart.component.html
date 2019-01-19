@@ -3,67 +3,6 @@
   <div class="card-body">
     <p>
       You have {{ cart.totalItemsCount }} items in your shopping cart.
-      <!-- <button
-        *ngIf="cart.items.length"
-        (click)="clearCart()"
-        class="float-right btn btn-light btn-sm"
-      >
-        Clear Shopping Cart
-      </button> -->
-    </p>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Product</th>
-        <th class="text-center" style="width: 230px">Quantity</th>
-        <th class="text-right" style="width: 200px">Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cart.items">
-        <td>
-          <div
-            [style.backgroundImage]="'url(' + item.imageUrl + ')'"
-            class="thumbnail"
-          ></div>
-        </td>
-        <td>{{ item.product.title }}</td>
-        <td>
-          {{ item.quantity }}
-          <!-- <product-quantity [product]="item" [shopping-cart]="cart">
-          </product-quantity> -->
-        </td>
-        <td class="text-right">{{ item.totalPrice | currency: 'USD':true }}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th class="text-right">{{ cart.totalPrice | currency: 'USD':true }}</th>
-      </tr>
-      <!-- <tr>
-        <th colspan="4">
-          <a
-            *ngIf="cart.items.length"
-            routerLink="/check-out"
-            class="btn btn-primary"
-            >Check Out</a
-          >
-        </th>
-      </tr> -->
-    </tfoot>
-  </table>
-</div>
-
-<!-- <h1>Shopping Cart</h1>
-<div class="card" *ngIf="(cart$ | async) as cart" style="width: 80%;">
-  <div class="card-body">
-    <p>
-      You have {{ cart.totalItemsCount }} items in your shopping cart.
       <button
         *ngIf="cart.items.length"
         (click)="clearCart()"
@@ -92,10 +31,12 @@
         </td>
         <td>{{ item.title }}</td>
         <td>
-          <product-quantity [product]="item" [shopping-cart]="cart">
-          </product-quantity>
+          <app-product-quantity [product]="item" [shopping-cart]="cart">
+          </app-product-quantity>
         </td>
-        <td class="text-right">{{ item.totalPrice | currency: 'USD':true }}</td>
+        <td class="text-right">
+          {{ cart.totalPrice | currency: 'USD':'symbol' }}
+        </td>
       </tr>
     </tbody>
     <tfoot>
@@ -103,7 +44,9 @@
         <th></th>
         <th></th>
         <th></th>
-        <th class="text-right">{{ cart.totalPrice | currency: 'USD':true }}</th>
+        <th class="text-right">
+          {{ cart.totalPrice | currency: 'USD':'symbol' }}
+        </th>
       </tr>
       <tr>
         <th colspan="4">
@@ -117,4 +60,4 @@
       </tr>
     </tfoot>
   </table>
-</div> -->
+</div>
