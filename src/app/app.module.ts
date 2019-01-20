@@ -20,21 +20,21 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
-import { AuthGuardService } from './auth-guard.service';
+import { AuthService } from 'shared/services/auth.service';
+import { AuthGuardService } from 'shared/services/auth-guard.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
-import { UserService } from './user.service';
-import { CategoryService } from './category.service';
+import { UserService } from 'shared/services/user.service';
+import { CategoryService } from 'shared/services/category.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from './product.service';
+import { ProductService } from 'shared/services/product.service';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { ShoppingCartService } from './shopping-cart.service';
-import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ProductCardComponent } from 'shared/components/product-card/product-card.component';
+import { ShoppingCartService } from 'shared/services/shopping-cart.service';
+import { ProductQuantityComponent } from 'shared/components/product-quantity/product-quantity.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
-import { OrderService } from './order.service';
+import { OrderService } from 'shared/services/order.service';
 
 @NgModule({
   declarations: [
